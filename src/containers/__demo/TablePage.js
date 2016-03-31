@@ -77,8 +77,7 @@ class TablePage extends React.Component {
     }
 
     render() {
-        console.log(1928389);
-        console.log(this.props.mapState);
+       
         const { columns, rows } = this.props.mapState.toJS()
         const { tableDispatch } = this.props
 
