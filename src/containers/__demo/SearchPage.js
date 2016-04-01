@@ -7,19 +7,20 @@ import PeopleSearch from 'components/__demo/search/PeopleSearch'
 import PeopleList from 'components/__demo/search/PeopleList'
 import ConfirmForm from 'components/__demo/search/ConfirmForm'
 
-import { getPeopleData,clickPeopleDate } from 'actions/__demo/searchPeople'
+import { getPeopleData,clickPeopleDate,clickPeopleTag ,deletePeopleTag,searchPeopleData,submitData} from 'actions/__demo/searchPeople'
 
 
 class SearchPage extends React.Component{
 	render(){
-		const {dispatch, getPeopleData, clickPeopleDate,mapState } = this.props;
+		const {dispatch, getPeopleData, clickPeopleDate,clickPeopleTag ,deletePeopleTag,
+			searchPeopleData,mapState } = this.props;
 		return (
 		  <div className="mbox_BombBox" >
 			 <div className = "mbox784" >
 		        <PeopleTitle/>
-		        <PeopleSearch/>
+		        <PeopleSearch mapState = {mapState} clickPeopleTag ={clickPeopleTag} deletePeopleTag={deletePeopleTag} searchPeopleData = {searchPeopleData}/>
 		        <PeopleList getPeopleData = {getPeopleData} mapState = {mapState} clickPeopleDate={clickPeopleDate}/>
-		        <ConfirmForm/>
+		        <ConfirmForm submitData={submitData} mapState = {mapState}/>
 		      </div>
 	      </div>
 		)
@@ -35,5 +36,9 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, {
     getPeopleData,
-    clickPeopleDate
+    clickPeopleDate,
+    clickPeopleTag,
+    deletePeopleTag,
+    searchPeopleData,
+    submitData
 })(SearchPage)

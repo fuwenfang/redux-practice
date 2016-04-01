@@ -8,10 +8,14 @@ import {
     CK_SEARCH_GETDATA_SUCCESS,
     CK_SEARCH_GETDATA_FAILURE,
     CK_SEARCH_GETDATA_ERROR_NETWORK,
-    CK_CLICK_GETDATA
+    CK_CLICK_GETDATA,
+    CK_TAG_UPDATEDATA,
+    CK_TAG_DELETEDATA,
+    CK_SEARCH_ITEMDATA,
+    CK_SUBMITDATA
 } from 'actions/__demo/searchPeople'
 
-export const searchPeople = (state = Immutable.Map({data:[]}), action) => {
+export const searchPeople = (state = Immutable.Map({data:[],itemdata:[]}), action) => {
     let payload = action.payload
 
     switch(action.type) {
@@ -19,10 +23,18 @@ export const searchPeople = (state = Immutable.Map({data:[]}), action) => {
             return state.merge({ pending: true })
         case CK_SEARCH_GETDATA_SUCCESS:
             //console.log(state.merge(action.payload))
-            return state.merge(action.payload,{ itemdata:[],areapadding:0})
+            return state.merge(action.payload,{ itemdata:[],areapadding:0,choseNameData:[]})
         case CK_SEARCH_GETDATA_FAILURE:
             return state.merge(action.payload, { pending: false })
         case CK_CLICK_GETDATA:
+            return state.merge(action.payload)
+        case CK_TAG_UPDATEDATA:
+            return state.merge(action.payload)
+        case CK_TAG_DELETEDATA:
+            return state.merge(action.payload)
+        case CK_SEARCH_ITEMDATA:
+            return state.merge(action.payload)
+        case CK_SUBMITDATA:
             return state.merge(action.payload)
         default:
             return state

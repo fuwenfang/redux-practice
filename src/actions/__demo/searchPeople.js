@@ -7,9 +7,21 @@ const CK_SEARCH_GETDATA_SUCCESS = 'CK_SEARCH_GETDATA_SUCCESS'
 const CK_SEARCH_GETDATA_FAILURE = 'CK_SEARCH_GETDATA_FAILURE'
 const CK_SEARCH_GETDATA_ERROR_NETWORK = 'CK_SEARCH_GETDATA_ERROR_NETWORK'
 
+
 //点击列表
 const CK_CLICK_GETDATA = 'CK_CLICK_GETDATA'
 
+//点击已选择的tag
+const CK_TAG_UPDATEDATA = 'CK_TAG_UPDATEDATA'
+
+//删除已选择的tag
+const CK_TAG_DELETEDATA = 'CK_TAG_DELETEDATA'
+
+//搜索人员数据
+const CK_SEARCH_ITEMDATA = 'CK_SEARCH_ITEMDATA'
+
+//提交数据
+const CK_SUBMITDATA = 'CK_SUBMITDATA'
 /**
  * 获取列表数据
  * @param  
@@ -133,7 +145,7 @@ export const getPeopleData = () => {
  */
 
     
-export const clickPeopleDate = ({"itemdata":itemdata,"areaPadding":InittextareaPadding})=>{
+export const clickPeopleDate = ({"itemdata":itemdata,"areapadding":InittextareaPadding})=>{
     const _clickPeopleDate = (type, data)=> {
         return {
             type,
@@ -142,16 +154,167 @@ export const clickPeopleDate = ({"itemdata":itemdata,"areaPadding":InittextareaP
     }
 
     return (dispatch, getState) => {
-        dispatch(_clickPeopleDate(CK_CLICK_GETDATA,{"itemdata":itemdata,"areaPadding":InittextareaPadding}))
+        dispatch(_clickPeopleDate(CK_CLICK_GETDATA,{"itemdata":itemdata,"areapadding":InittextareaPadding}))
     }
 
 }
+
+
+/**
+ * 点击tag标签数据
+ * @param  
+ * @param 
+ * @returns {Function}
+ */
+
+    
+export const clickPeopleTag = ({"itemdata":itemdata,"areapadding":newareapadding})=>{
+    const _clickPeopleTag = (type, data)=> {
+        return {
+            type,
+            payload: data
+        }
+    }
+
+    return (dispatch, getState) => {
+        dispatch(_clickPeopleTag(CK_TAG_UPDATEDATA,{"itemdata":itemdata,"areapadding":newareapadding}))
+    }
+
+}
+
+/**
+ * 点击tag标签数据
+ * @param  
+ * @param 
+ * @returns {Function}
+ */
+
+    
+export const deletePeopleTag = ({"itemdata":nameItemData,"areapadding":newareapadding})=>{
+    const _deletePeopleTag = (type, data)=> {
+        return {
+            type,
+            payload: data
+        }
+    }
+
+    return (dispatch, getState) => {
+        dispatch(_deletePeopleTag(CK_TAG_DELETEDATA,{"itemdata":nameItemData,"areapadding":newareapadding}))
+    }
+
+}
+/**
+ * 搜索数据
+ * @param  
+ * @param 
+ * @returns {Function}
+ */
+
+export const searchPeopleData = (textValue)=>{
+    const _searchPeopleData = (type, data)=> {
+        return {
+            type,
+            payload: data
+        }
+    }
+
+    return (dispatch, getState) => {
+        const url = '/actions/_demo/list.json';
+        const searchJsonData = {
+            data:[{
+                "ID":"4085",
+                "Name":"张笑颜a",
+                "Dept":"全公司",
+                "Avatar":"http://test.staticoss.upesn.com/1/4085/201509/25/1443191497Eth8.jpg.thumb.jpg",
+                "Url":"http://esn.fuwenfang.com/space/cons/index/id/4085"
+            },
+            {
+                "ID":"4049",
+                "Name":"唐零一二",
+                "Dept":"全公司",
+                "Avatar":"http://test.staticoss.upesn.com/1/4049/201511/26/1448536650Pppi.jpeg.thumb.jpg",
+                "Url":"http://esn.fuwenfang.com/space/cons/index/id/4049"
+            },
+            {
+                "ID":"3992",
+                "Name":"212",
+                "Dept":"研发部",
+                "Avatar":"http://esn.fuwenfang.com/front/images/scrm/default_avatar.png",
+                "Url":"http://esn.fuwenfang.com/space/cons/index/id/3992"
+            },
+            {
+                "ID":"3925",
+                "Name":"eoi",
+                "Dept":"全公司",
+                "Avatar":"http://test.staticoss.upesn.com/314/3925/201502/11/1423645702oH3y.jpg.thumb.jpg",
+                "Url":"http://esn.fuwenfang.com/space/cons/index/id/3925"
+            }]
+        };
+
+        dispatch(_searchPeopleData(CK_SEARCH_GETDATA));
+
+        return fetch(url, {
+            method: 'get',
+            headers: {
+                'API': 1,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(response=> {
+            //dispatch(_getPeopleData(CK_SEARCH_GETDATA_SUCCESS, peopleListData))
+            if (response.status >= 400) {
+                //dispatch(_getReportData(CK_REPORT_GETDATA_ERROR_NETWORK))
+                return {};
+            }
+            return response.json()
+        }).then(json=> {
+            json = searchJsonData;//假数据
+            //console.log(json);
+            // if (json.rs) {
+            //     dispatch(_getPeopleData(CK_SEARCH_GETDATA_SUCCESS, json.data))
+            // } else {
+            //     dispatch(_getPeopleData(CK_SEARCH_GETDATA_FAILURE))
+            // }
+            dispatch(_searchPeopleData(CK_SEARCH_ITEMDATA, json))
+        })
+    }
+
+}
+
+
+
+export const submitData = ({"chosedNameData":choseNameData})=>{
+
+    const _submitData = (type, data)=> {
+        alert(1111)
+        return {
+            type,
+            payload: data
+        }
+    }
+
+    return (dispatch, getState) => {
+        dispatch(_submitData(CK_SUBMITDATA,{"chosedNameData":choseNameData}))
+    }
+
+}
+
+
+
 export {
     CK_SEARCH_GETDATA,
     CK_SEARCH_GETDATA_SUCCESS,
     CK_SEARCH_GETDATA_FAILURE,
     CK_SEARCH_GETDATA_ERROR_NETWORK,
     CK_CLICK_GETDATA,
+    CK_TAG_UPDATEDATA,
+    CK_TAG_DELETEDATA,
+    CK_SEARCH_ITEMDATA,
+    CK_SUBMITDATA,
     getPeopleData,
-    clickPeopleDate
+    clickPeopleDate,
+    clickPeopleTag,
+    deletePeopleTag,
+    searchPeopleData,
+    submitData
 }
