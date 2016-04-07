@@ -286,7 +286,6 @@ export const searchPeopleData = (textValue)=>{
 export const submitData = ({"chosedNameData":choseNameData})=>{
 
     const _submitData = (type, data)=> {
-        alert(1111)
         return {
             type,
             payload: data

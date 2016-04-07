@@ -15,15 +15,14 @@ import {
     CK_SUBMITDATA
 } from 'actions/__demo/searchPeople'
 
-export const searchPeople = (state = Immutable.Map({data:[],itemdata:[]}), action) => {
+export const searchPeople = (state = Immutable.Map({data:[],itemdata:[],IsShow:true}), action) => {
     let payload = action.payload
 
     switch(action.type) {
         case CK_SEARCH_GETDATA:
             return state.merge({ pending: true })
         case CK_SEARCH_GETDATA_SUCCESS:
-            //console.log(state.merge(action.payload))
-            return state.merge(action.payload,{ itemdata:[],areapadding:0,choseNameData:[]})
+            return state.merge(action.payload,{ itemdata:[],areapadding:0,chosedNameData:[]})
         case CK_SEARCH_GETDATA_FAILURE:
             return state.merge(action.payload, { pending: false })
         case CK_CLICK_GETDATA:
@@ -35,7 +34,7 @@ export const searchPeople = (state = Immutable.Map({data:[],itemdata:[]}), actio
         case CK_SEARCH_ITEMDATA:
             return state.merge(action.payload)
         case CK_SUBMITDATA:
-            return state.merge(action.payload)
+            return state.merge(action.payload,{IsShow:false})
         default:
             return state
     }

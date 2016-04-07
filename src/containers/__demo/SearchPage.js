@@ -13,9 +13,10 @@ import { getPeopleData,clickPeopleDate,clickPeopleTag ,deletePeopleTag,searchPeo
 class SearchPage extends React.Component{
 	render(){
 		const {dispatch, getPeopleData, clickPeopleDate,clickPeopleTag ,deletePeopleTag,
-			searchPeopleData,mapState } = this.props;
+			searchPeopleData,submitData,mapState } = this.props;
+		const isShow  = mapState.toJS().IsShow;
 		return (
-		  <div className="mbox_BombBox" >
+		  <div className="mbox_BombBox " style={{display: isShow? 'block':'none'}}>
 			 <div className = "mbox784" >
 		        <PeopleTitle/>
 		        <PeopleSearch mapState = {mapState} clickPeopleTag ={clickPeopleTag} deletePeopleTag={deletePeopleTag} searchPeopleData = {searchPeopleData}/>

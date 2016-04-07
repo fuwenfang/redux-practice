@@ -29,7 +29,7 @@
         padding-left: 10px;
         padding-top: 10px;
         height: 250px;
-        overflow-y: auto;
+        position: relative;
     }
     .m_btn01{ 
         width:258px; 
@@ -66,6 +66,7 @@
         overflow: hidden;
         outline:0;
         resize:none;
+        box-sizing:border-box;
     }
     .dev-tags{ 
         width:820px; 
@@ -84,14 +85,7 @@
 
 }
 .mbox_BombBoxList01{
-    .mbox_BombBoxList01{
-        width:810px;
-        border: 1px solid #dcdcdc;
-        padding-left: 10px;
-        padding-top: 10px;
-        height: 250px;
-        overflow-y: auto;
-    }
+    
         .m_list02{ 
             width:793px; 
             overflow:hidden;
@@ -143,6 +137,25 @@
             padding: 0 5px;
         }
 }
+.mbox_BombBoxList01{
+    #dRight{
+        position:absolute;
+        top:0;
+        right:0;
+        height:100%;
+        background:#999;
+        width:10px; 
+    }
+
+}
+#dRight{
+    #scrollBar{
+        position:absolute;
+        background:#000;
+        width:100%;
+    }
+}
+
 .m_btn01{
     .m_btn01R {
         float: right;

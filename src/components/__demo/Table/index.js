@@ -54,9 +54,8 @@ class Table extends React.Component {
         let finalCol = {
             [COLUMN_KEY]: col[COLUMN_KEY]
         }
-
-        this.finalColumns.push(finalCol)
-
+        this.finalColumns.push(finalCol);
+        //console.log(col[COLUMN_KEY]+'0000000000');
         if (!React.isValidElement(col)) {
             finalCol[COLUMN_TEXT] = col[COLUMN_TEXT]
             finalCol[COLUMN_FORMAT] = col[COLUMN_FORMAT]
@@ -66,9 +65,11 @@ class Table extends React.Component {
             return (<Th {...finalCol}/>)
         }
 
-        finalCol[COLUMN_FORMAT] = col.props[COLUMN_FORMAT]
+        finalCol[COLUMN_FORMAT] = col.props[COLUMN_FORMAT];
 
-        return col
+
+        return col;
+                
     }
 
     resolveRow(row, index) {

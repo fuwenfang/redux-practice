@@ -17,11 +17,12 @@ export  default  class ConfirmForm extends Component{
     	
     	submitData({"chosedNameData":choseNameData});
     }
+    
 	render(){
 		return (
 			<div className = "m_btn01 clearfix">
 	            <div className="m_btn01L" onClick = {this.clickOkBtn.bind(this)}>确认</div>
-	            <div className="m_btn01R">取消</div>
+	            <div className="m_btn01R" >取消</div>
 	        </div>
 		)
 	}	
