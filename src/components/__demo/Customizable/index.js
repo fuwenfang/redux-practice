@@ -10,7 +10,7 @@ const CLASS ="className"
 class Table extends  React.Component{
 	constructor(props) {
         super(props)
-        this.finalColumns =[]
+        this.handleSetting = this.handleSetting.bind(this)
     }
     resolveColumnsTitle(){
         //todo: 判断字段hidden是否存在和其的值
@@ -20,7 +20,28 @@ class Table extends  React.Component{
         return this.props.columns.map((col, i) => col['text'])
     }
 
+    resolveRows(row, index) {
+        const context = this
 
+        return (
+            <tr key = {index}>
+                {
+                    this.props.columns.map((col, i) => {
+                        const datafield = col['datafield']
+                        const cellsrenderer=col['cellsrenderer']
+                        return  datafield=='id'?<td key = {i} onClick={this.handleSetting.bind(this,index)}>{cellsrenderer(row, col, row[datafield])}</td>
+                        :<td key = {i} >{ row[datafield] }</td> 
+                    })
+                }
+            </tr>
+        )
+    }
+
+    handleSetting(i){
+    	const {selectedRowData} = this.props;
+    	const selectedRow = this.props.rows[i];
+    	selectedRowData({'selectedRow':selectedRow})
+    }
 	render(){
 		return(
 			<table >
@@ -30,6 +51,7 @@ class Table extends  React.Component{
 					</tr>
 				</thead>
 				<tbody>
+						{ this.props.rows.map(this.resolveRows.bind(this)) }
 				</tbody>
 
 			</table>

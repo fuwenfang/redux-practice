@@ -1,37 +1,37 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'D:\\Program Files\\nodejs\\node.exe',
-1 verbose cli   'D:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
 1 verbose cli   'run',
 1 verbose cli   'debug' ]
-2 info using npm@3.7.3
-3 info using node@v5.9.0
+2 info using npm@3.3.12
+3 info using node@v5.3.0
 4 verbose run-script [ 'predebug', 'debug', 'postdebug' ]
 5 info lifecycle practices@1.0.0~predebug: practices@1.0.0
 6 silly lifecycle practices@1.0.0~predebug: no script for predebug, continuing
 7 info lifecycle practices@1.0.0~debug: practices@1.0.0
 8 verbose lifecycle practices@1.0.0~debug: unsafe-perm in lifecycle true
-9 verbose lifecycle practices@1.0.0~debug: PATH: D:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;D:\reduxpractices\practices\node_modules\.bin;D:\Program Files\nodejs;C:\Users\fuwenfang\bin;D:\Program Files\Git\mingw64\bin;D:\Program Files\Git\usr\local\bin;D:\Program Files\Git\usr\bin;D:\Program Files\Git\usr\bin;D:\Program Files\Git\mingw64\bin;D:\Program Files\Git\usr\bin;C:\Users\fuwenfang\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files\Lenovo\Fingerprint Manager Pro;C:\Program Files\TortoiseHg;C:\Program Files\TortoiseSVN\bin;D:\Program Files\nodejs;C:\Users\fuwenfang\AppData\Roaming\npm;D:\Program Files\Git\usr\bin\vendor_perl;D:\Program Files\Git\usr\bin\core_perl
-10 verbose lifecycle practices@1.0.0~debug: CWD: D:\reduxpractices\practices
+9 verbose lifecycle practices@1.0.0~debug: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;E:\redux-practice\node_modules\.bin;C:\Users\Administrator\bin;D:\Program Files\Git\mingw64\bin;D:\Program Files\Git\usr\local\bin;D:\Program Files\Git\usr\bin;D:\Program Files\Git\usr\bin;D:\Program Files\Git\mingw64\bin;D:\Program Files\Git\usr\bin;C:\Users\Administrator\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\TortoiseHg;D:\Program Files\Mercurial;D:\Python2711;D:\Python2711\Scripts;D:\Program Files\Git\cmd;C:\Program Files\nodejs\node_modules\npm;C:\Program Files\nodejs;C:\Users\Administrator\AppData\Roaming\npm;D:\Program Files\Git\usr\bin\vendor_perl;D:\Program Files\Git\usr\bin\core_perl
+10 verbose lifecycle practices@1.0.0~debug: CWD: E:\redux-practice
 11 silly lifecycle practices@1.0.0~debug: Args: [ '/d /s /c',
 11 silly lifecycle   'webpack-dev-server --progress --colors --display-error-details --display-modules --config webpack-dev.config.js' ]
 12 silly lifecycle practices@1.0.0~debug: Returned: code: 1  signal: null
 13 info lifecycle practices@1.0.0~debug: Failed to exec debug script
 14 verbose stack Error: practices@1.0.0 debug: `webpack-dev-server --progress --colors --display-error-details --display-modules --config webpack-dev.config.js`
 14 verbose stack Exit status 1
-14 verbose stack     at EventEmitter.<anonymous> (D:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:239:16)
-14 verbose stack     at emitTwo (events.js:100:13)
-14 verbose stack     at EventEmitter.emit (events.js:185:7)
-14 verbose stack     at ChildProcess.<anonymous> (D:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
-14 verbose stack     at emitTwo (events.js:100:13)
-14 verbose stack     at ChildProcess.emit (events.js:185:7)
-14 verbose stack     at maybeClose (internal/child_process.js:850:16)
-14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
+14 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:232:16)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at EventEmitter.emit (events.js:172:7)
+14 verbose stack     at ChildProcess.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at ChildProcess.emit (events.js:172:7)
+14 verbose stack     at maybeClose (internal/child_process.js:818:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
 15 verbose pkgid practices@1.0.0
-16 verbose cwd D:\reduxpractices\practices
+16 verbose cwd E:\redux-practice
 17 error Windows_NT 6.1.7601
-18 error argv "D:\\Program Files\\nodejs\\node.exe" "D:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "debug"
-19 error node v5.9.0
-20 error npm  v3.7.3
+18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "debug"
+19 error node v5.3.0
+20 error npm  v3.3.12
 21 error code ELIFECYCLE
 22 error practices@1.0.0 debug: `webpack-dev-server --progress --colors --display-error-details --display-modules --config webpack-dev.config.js`
 22 error Exit status 1
@@ -41,9 +41,7 @@
 23 error not with npm itself.
 23 error Tell the author that this fails on your system:
 23 error     webpack-dev-server --progress --colors --display-error-details --display-modules --config webpack-dev.config.js
-23 error You can get information on how to open an issue for this project with:
-23 error     npm bugs practices
-23 error Or if that isn't available, you can get their info via:
+23 error You can get their info via:
 23 error     npm owner ls practices
 23 error There is likely additional logging output above.
 24 verbose exit [ 1, true ]
