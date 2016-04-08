@@ -12,7 +12,9 @@ import {
     CK_TAG_UPDATEDATA,
     CK_TAG_DELETEDATA,
     CK_SEARCH_ITEMDATA,
-    CK_SUBMITDATA
+    CK_SUBMITDATA,
+    CK_LOADMORE_GETDATA,
+    CK_LOADMORE_GETDATA_SUCCESS
 } from 'actions/__demo/searchPeople'
 
 export const searchPeople = (state = Immutable.Map({data:[],itemdata:[],IsShow:true}), action) => {
@@ -35,6 +37,10 @@ export const searchPeople = (state = Immutable.Map({data:[],itemdata:[],IsShow:t
             return state.merge(action.payload)
         case CK_SUBMITDATA:
             return state.merge(action.payload,{IsShow:false})
+        case CK_LOADMORE_GETDATA:
+            return state.merge({ pending: true })
+        case CK_LOADMORE_GETDATA_SUCCESS:
+            return state.merge(action.payload) 
         default:
             return state
     }

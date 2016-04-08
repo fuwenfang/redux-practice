@@ -10,6 +10,11 @@ export  default class PeopleSearch extends Component{
 	constructor(props) {
         super(props)
         this.haddleClick = this.haddleClick.bind(this);
+        this.wheel = this.wheel.bind(this);
+        this.clickBarDoMove =this.clickBarDoMove.bind(this);
+        this.mousedownDar =this.mousedownDar.bind(this);
+        this.stopMove = this.stopMove.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
 
     }	
     componentDidMount(prevProps, prevState) {
@@ -17,8 +22,8 @@ export  default class PeopleSearch extends Component{
         getPeopleData();
         const BombBoxList = ReactDOM.findDOMNode(this.refs.BombBoxList);
         const dRight = ReactDOM.findDOMNode(this.refs.dRight);
-        const mListUl = ReactDOM.findDOMNode(this.refs.mListUl);
         const scrollBar = ReactDOM.findDOMNode(this.refs.scrollBar);
+        const mbox_boxList = ReactDOM.findDOMNode(this.refs.mbox_boxList);
 
         const mouseWheel=(/firefox/i.test(navigator.userAgent))?'DOMMouseScroll':'mousewheel';
 
@@ -31,23 +36,24 @@ export  default class PeopleSearch extends Component{
 
         }
         
-        
-        BombBoxList.onmouseover=function(){
-            dRight.style.display = 'block';
-            
-            if(mListUl.scrollHeight>mListUl.clientHeight)
+       BombBoxList.onmouseover=()=>{
+            scrollBar.style.display = 'block';
+                        
+            if(mbox_boxList.scrollHeight>mbox_boxList.clientHeight)
             {//计算滚动条滑块的长度
-                scrollBar.style.height=mListUl.clientHeight*dRight.clientHeight/mListUl.scrollHeight+'px';
+
+                scrollBar.style.height=mbox_boxList.clientHeight*dRight.clientHeight/mbox_boxList.scrollHeight+'px';
                 scrollBool=true;
             }
             else
             {//内容小于可视区时，隐藏滚动条
-                dRight.style.visibility='hidden';
+
+                scrollBar.style.visibility='hidden';
                 scrollBool=false;
             }
         };
-        BombBoxList.onmouseout=function(){
-            dRight.style.display = 'none';
+        BombBoxList.onmouseout=()=>{
+            scrollBar.style.display = 'none';
         };
     }
     haddleClick(i){
@@ -82,38 +88,57 @@ export  default class PeopleSearch extends Component{
         clickPeopleDate({"itemdata":itemdata,"areapadding":InittextareaPadding});
         
     }
+    mousedownDar(e){
+        const scrollBar = ReactDOM.findDOMNode(this.refs.scrollBar);
+        scrollBool=true;
+        e=e||window.event;
+        iStart=e.clientY;
+        iTop=scrollBar.offsetTop;
+        if(scrollBar.setCapture)
+        {
+            scrollBar.onmousemove=this.clickBarDoMove;
+            scrollBar.onmouseup=this.stopMove;
+            scrollBar.setCapture();
+        }
+        else
+        {
+            document.addEventListener('mousemove',this.clickBarDoMove,true);
+            document.addEventListener('mouseup',this.stopMove,true);
+        }
+
+    }
     clickBarDoMove(e){
         const dRight = ReactDOM.findDOMNode(this.refs.dRight);
-        const mListUl = ReactDOM.findDOMNode(this.refs.mListUl);
         const scrollBar = ReactDOM.findDOMNode(this.refs.scrollBar);
+        const mbox_boxList = ReactDOM.findDOMNode(this.refs.mbox_boxList);
 
         if(scrollBool==false) return;
         e=e||window.event;
-        var y=e.clientY-iStart+iTop;
+        let y=e.clientY-iStart+iTop;
         if(y<0)
         {
             y=0;
         }//滚动条的移动区域
         else if(y>dRight.clientHeight-scrollBar.clientHeight)
-        {
+        {        
             y=dRight.clientHeight-scrollBar.clientHeight;
         }
-        var h=dRight.clientHeight-scrollBar.clientHeight;
-        var yh=y/h*(mListUl.scrollHeight-mListUl.clientHeight)    //内容随滚动条滚动
+
+        let h=dRight.clientHeight-scrollBar.clientHeight;
+        let yh=y/h*(mbox_boxList.scrollHeight-mbox_boxList.clientHeight)    //内容随滚动条滚动
+        
         scrollBar.style.top=y+'px';
-        mListUl.scrollTop=yh;
+        mbox_boxList.scrollTop=yh;
     }
 
     stopMove(){
-        const dRight = ReactDOM.findDOMNode(this.refs.dRight);
-        const mListUl = ReactDOM.findDOMNode(this.refs.mListUl);
         const scrollBar = ReactDOM.findDOMNode(this.refs.scrollBar);
 
         if(scrollBar.releaseCapture)
             scrollBar.releaseCapture();
         else
         {
-            document.removeEventListener('mousemove',this.doMove,true);
+            document.removeEventListener('mousemove',this.clickBarDoMove,true);
             document.removeEventListener('mouseup',this.stopMove,true);
         }
         scrollBar.onmousemove=null;
@@ -122,21 +147,31 @@ export  default class PeopleSearch extends Component{
     }
     wheel(e){
         const dRight = ReactDOM.findDOMNode(this.refs.dRight);
-        const mListUl = ReactDOM.findDOMNode(this.refs.mListUl);
         const scrollBar = ReactDOM.findDOMNode(this.refs.scrollBar);
-
+        const mbox_boxList = ReactDOM.findDOMNode(this.refs.mbox_boxList);
         if(scrollBool==false) return;
         e=e||window.event;
-        var detail=e.wheelDelta?e.wheelDelta:e.detail*(-120);
-        var y=mListUl.scrollTop;
-        var h=mListUl.scrollHeight-mListUl.clientHeight;
+        let detail=e.wheelDelta?e.wheelDelta:e.detail*(-120);
+        let y=mbox_boxList.scrollTop;
+        let h=mbox_boxList.scrollHeight-mbox_boxList.clientHeight;
         y=detail>=120?y-30:y+30;
         if(y<0) y=0;
         else if(y>h) y=h;
-        var yh=y/h*(dRight.clientHeight-scrollBar.clientHeight);
-        mListUl.scrollTop=y;
+        let yh=y/h*(dRight.clientHeight-scrollBar.clientHeight);
+        mbox_boxList.scrollTop=y;
         if(yh<0) yh=0;
         scrollBar.style.top=yh+'px';
+    }
+    handleScroll(){
+      const scroll_height = ReactDOM.findDOMNode(this.refs.mbox_boxList).scrollHeight;
+      const  win_height = ReactDOM.findDOMNode(this.refs.mbox_boxList).clientHeight;
+      const scroll_top = ReactDOM.findDOMNode(this.refs.mbox_boxList).scrollTop;
+
+      if ((scroll_height - win_height - scroll_top) == 0&&scroll_top>0 ) {
+        const {loadNextPage} = this.props;
+        loadNextPage();
+
+      }
     }
 
 	render(){
@@ -144,22 +179,25 @@ export  default class PeopleSearch extends Component{
 	
     const peopleListData = mapState.toJS().data;
 		return (
-	        <div className="mbox_BombBoxList01"  ref = "BombBoxList" }>
-	          <ul className="clearfix m_list02" ref = 'mListUl'>
+	        <div className="mbox_BombBoxList01"  ref = "BombBoxList" >
+            <div className = "mbox_boxList02" ref = "mbox_boxList" onScroll ={this.handleScroll}>
+              <ul className="clearfix m_list02" ref = "mListUl">
                 {
                     peopleListData.map((item, i) => {
                         return (
-	                        <li key={i} onClick={this.haddleClick.bind(this,i)} >
-                    	       <a href="#" target="_blank"><img src={item.Avatar} width="60" height="60" /></a>
-					          <h5 >{item.Name}</h5>
-					          <div className="zhiwei"><a href="#" target="_blank">{item.Dept}</a></div>
-	                        </li>
+                            <li key={i} onClick={this.haddleClick.bind(this,i)} >
+                               <a href="#" target="_blank"><img src={item.Avatar} width="60" height="60" /></a>
+                              <h5 >{item.Name}</h5>
+                              <div className="zhiwei"><a href="#" target="_blank">{item.Dept}</a></div>
+                            </li>
                         )
                     })
                 }
-	          </ul>
+              </ul>
+            </div>
               <div id="dRight" ref = "dRight" onClick = {this.clickBarDoMove}>
-                    <div id="scrollBar" ref = "scrollBar"></div>
+                    <div id="scrollBar" ref = "scrollBar"  onMouseDown= {this.mousedownDar}>
+                    </div>
              </div>
 	        </div>
 		)

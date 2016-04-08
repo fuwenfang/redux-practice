@@ -19,6 +19,10 @@ class IndexPage extends React.Component {
                 <Link to="/__demo/search">
                     search
                 </Link>
+                <br/>
+                <Link to="/__demo/customizable">
+                    customizable
+                </Link>
                 {this.props.children}
             </div>
         )
