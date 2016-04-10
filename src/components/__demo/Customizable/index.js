@@ -1,16 +1,16 @@
 import { isPlainObject, isFunction, isString } from 'lodash'
 import warning from 'fbjs/lib/warning'
 
-const COLUMN_KEY ="key"
-const COLUMN_TEXT ="text"
-const CLASS ="className"
-
 
 
 class Table extends  React.Component{
 	constructor(props) {
         super(props)
         this.handleSetting = this.handleSetting.bind(this)
+    }
+    componentDidMount(prevProps, prevState) {
+        const { getTableData } = this.props;
+        getTableData();
     }
     resolveColumnsTitle(){
         //todo: 判断字段hidden是否存在和其的值

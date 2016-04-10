@@ -1,7 +1,11 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import Customizable from 'components/__demo/Customizable/Customizable.less'
+
 import Table from 'components/__demo/Customizable'
-import { selectedRowData} from 'actions/__demo/Customizable'
+import DivTab from 'components/__demo/Customizable/DivTab'
+import DivList from 'components/__demo/Customizable/DivList'
+import { selectedRowData,clickCloseBtn,selectedTabIndex,changeIsRequired,getTableData} from 'actions/__demo/Customizable'
 
 
 let columns = [
@@ -21,34 +25,54 @@ let columns = [
     }
 ];
 
-let rows = [
-    {col_name:'客户级别',col_type:'单选类型',col_IsRequired:'是',col_Remark:'用户自定义',id:1},
-    {col_name:'所属区域',col_type:'单选类型',col_IsRequired:'是',col_Remark:'用户自定义',id:2},
-    {col_name:'客户来源',col_type:'单选类型',col_IsRequired:'是',col_Remark:'用户自定义',id:3},
-    {col_name:'行业分类',col_type:'单选类型',col_IsRequired:'是',col_Remark:'用户自定义',id:4}
-
-]
 
 class CustomizablePage extends  React.Component{
+    handleClose(){
+        const {clickCloseBtn} = this.props;
+        clickCloseBtn();
+    }
 	render(){
-        const {selectedRowData} = this.props;
-		return (
-            <div>
-                <Table className="table table-hover"
-                   columns={columns}
-                   rows = {rows} 
-                   selectedRowData = {selectedRowData}
-                 >
-                 </Table>
-
-                 <div className = "columnsSetting">
-                    <div className = "columnsSettingHead">
-
-                    </div>
-                 </div>
-
-            </div>
-		)
+        const {selectedRowData,mapState} = this.props;
+        const IsShow = mapState.toJS().IsShow;
+        const rows = mapState.toJS().rows;
+        if(!IsShow){
+            return (
+                <div>
+                    <Table className="table table-hover"
+                       columns={columns}
+                       rows = {rows} 
+                       selectedRowData = {selectedRowData}
+                       getTableData = {getTableData}
+                     >
+                     </Table>
+                </div>
+            )
+        }else{
+        const {mapState,selectedTabIndex,changeIsRequired} = this.props;
+        const col_name = mapState.toJS().selectedRow["col_name"];
+            return (
+                <div>
+                    <Table className="table table-hover"
+                       columns={columns}
+                       rows = {rows} 
+                       selectedRowData = {selectedRowData}
+                       getTableData = {getTableData}
+                     >
+                     </Table>
+                     <div className = "CustomizableSettingBg">
+                        <div className = "CustomizableSetting">
+                            <div className = "CustomizableSettingHead">{col_name}
+                            <span className="settingClose" onClick = {this.handleClose.bind(this)}>关闭</span>
+                            </div>
+                            <div>
+                                <DivTab mapState={mapState} selectedTabIndex={selectedTabIndex} ></DivTab>
+                                <DivList mapState={mapState} changeIsRequired = {changeIsRequired}></DivList>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+                )
+        }
 	}
 }
 
@@ -59,6 +83,10 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default connect(mapStateToProps, {
-    selectedRowData
+    selectedRowData,
+    clickCloseBtn,
+    selectedTabIndex,
+    changeIsRequired,
+    getTableData
     
 })(CustomizablePage)
