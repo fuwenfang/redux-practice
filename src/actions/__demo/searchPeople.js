@@ -40,8 +40,8 @@ export const getPeopleData = () => {
         }
     }
 
-    return (dispatch, getState) => {
 
+    return (dispatch, getState) => {
         //const url = 'http://esn.chenhuangfang.com/scrmnumreport/index/tpllist/VISITID/1?filterscount=0&groupscount=0&pagenum=1&pagesize=20&recordstartindex=0&recordendindex=13&_=1458806730117'
         const url = '/actions/_demo/list.json';
         const jsonData = {

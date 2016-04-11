@@ -10,18 +10,15 @@ class Table extends  React.Component{
     }
     componentDidMount(prevProps, prevState) {
         const { getTableData } = this.props;
+
         getTableData();
+
     }
-    resolveColumnsTitle(){
-        //todo: 判断字段hidden是否存在和其的值
-        /* 返回表头文本数组
-           ['姓名', '年龄']
-         */
+    resolveColumnsText(){
         return this.props.columns.map((col, i) => col['text'])
     }
 
     resolveRows(row, index) {
-        const context = this
 
         return (
             <tr key = {index}>
@@ -40,6 +37,8 @@ class Table extends  React.Component{
     handleSetting(i){
     	const {selectedRowData} = this.props;
     	const selectedRow = this.props.rows[i];
+        //把每个字段的自定义编辑项的信息也要请求过来，这里用假数据代替
+        
     	selectedRowData({'selectedRow':selectedRow})
     }
 	render(){
@@ -47,7 +46,7 @@ class Table extends  React.Component{
 			<table >
 				<thead>
 					<tr>
-                		{this.resolveColumnsTitle().map((colName, i)=><th key = {i}>{colName}</th>)}
+                		{this.resolveColumnsText().map((colName, i)=><th key = {i}>{colName}</th>)}
 					</tr>
 				</thead>
 				<tbody>

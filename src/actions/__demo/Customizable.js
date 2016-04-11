@@ -1,18 +1,24 @@
 import fetch from 'isomorphic-fetch'
 import { routerMiddleware, push } from 'react-router-redux'
 
-// 获取列表数据
+// 选择某一个字段编辑
 const CK_SELECTEDROWDATA = 'CK_SELECTEDROWDATA'
 
+//关闭模态层
 const CK_SETTINGCLOSE = 'CK_SETTINGCLOSE'
 
+//切换tab
 const CK_CHANGETAB = 'CK_CHANGETAB'
 
+//改变是否必填
 const CK_CHANGEISREQUIRED = 'CK_CHANGEISREQUIRED'
 
-const     CK_TABLE_GETDATA ='CK_TABLE_GETDATA'
-const     CK_TABLE_GETDATA_SUCCESS = 'CK_TABLE_GETDATA_SUCCESS'
+//获取自定义字段列表数据
+const CK_TABLE_GETDATA ='CK_TABLE_GETDATA'
+const CK_TABLE_GETDATA_SUCCESS = 'CK_TABLE_GETDATA_SUCCESS'
 
+//增加一行编辑项
+const CK_ADDITEM = 'CK_ADDITEM'
 /**
  * 点击列表数据
  * @param  
@@ -21,7 +27,6 @@ const     CK_TABLE_GETDATA_SUCCESS = 'CK_TABLE_GETDATA_SUCCESS'
  */
  export const getTableData = () => {
     const _getTableData = (type, data)=> {
-        alert(11111111)
         return {
             type,
             payload: data
@@ -42,6 +47,7 @@ const     CK_TABLE_GETDATA_SUCCESS = 'CK_TABLE_GETDATA_SUCCESS'
     };
 
         dispatch(_getTableData(CK_TABLE_GETDATA));
+
         return fetch(url, {
             method: 'get',
             headers: {
@@ -57,22 +63,21 @@ const     CK_TABLE_GETDATA_SUCCESS = 'CK_TABLE_GETDATA_SUCCESS'
             }
             return response.json()
         }).then(json=> {
-            json = jsonData;//假数据
+            json = rowData;//假数据
             //console.log(json);
             // if (json.rs) {
             //     dispatch(_getPeopleData(CK_SEARCH_GETDATA_SUCCESS, json.data))
             // } else {
             //     dispatch(_getPeopleData(CK_SEARCH_GETDATA_FAILURE))
             // }
-            dispatch(_getPeopleData(CK_SEARCH_GETDATA_SUCCESS, json))
+            dispatch(_getTableData(CK_TABLE_GETDATA_SUCCESS, json))
         })
-
-
     }
 }
 
     
 export const selectedRowData = ({'selectedRow':selectedRow})=>{
+    //此处需要请求到每个自定义字段的编辑项信息，此处用假数据代替
     const _selectedRowData = (type, data)=> {
 
         return {
@@ -81,6 +86,17 @@ export const selectedRowData = ({'selectedRow':selectedRow})=>{
         }
     }
 
+    const editColumnsOptions = [
+    {optionInfor:'村级代理商',IsDelete:'否',status:'启用'},
+    {optionInfor:'县级代理商',IsDelete:'是',status:'启用'},
+    {optionInfor:'省级代理商',IsDelete:'是',status:'未启用'},
+    {optionInfor:'一级代理商',IsDelete:'是',status:'启用'},
+    {optionInfor:'二级代理商',IsDelete:'是',status:'启用'},
+    {optionInfor:'',IsDelete:'是',status:'启用'}
+]
+
+    selectedRow.editColumnsOptions = editColumnsOptions;
+    
     return (dispatch, getState) => {
         dispatch(_selectedRowData(CK_SELECTEDROWDATA,{'selectedRow':selectedRow}))
     }
@@ -136,6 +152,22 @@ export const changeIsRequired = (changedSatus)=>{
 
 }
 
+//增加一行编辑项
+export const addItem = (i)=>{
+    /*const _addItem = (type,data)=>{
+        return {
+            type,
+            payload:data
+        }
+    }
+    return (dispatch,getState)=>{
+        dispatch(_addItem(CK_ADDITEM,i))
+    }*/
+    return {
+        type: CK_ADDITEM,
+        payload: i
+    }
+}
 
 export {
 	CK_SELECTEDROWDATA,
@@ -144,10 +176,12 @@ export {
     CK_CHANGEISREQUIRED,
     CK_TABLE_GETDATA,
     CK_TABLE_GETDATA_SUCCESS,
+    CK_ADDITEM,
     getTableData,
 	selectedRowData,
     clickCloseBtn,
     selectedTabIndex,
-    changeIsRequired
+    changeIsRequired,
+    addItem,
 }
 

@@ -1,5 +1,6 @@
 import { isPlainObject, isFunction, isString } from 'lodash'
 import warning from 'fbjs/lib/warning'
+import DivEdit from './DivEdit'
 
 
 class DivList extends React.Component{
@@ -8,17 +9,7 @@ class DivList extends React.Component{
         this.handleCheckbox = this.handleCheckbox.bind(this)
     }
     componentDidMount(prevProps, prevState) {
-        const checkboxInput = this.refs.checkboxInput;
-        const selectedRow = this.props.mapState.toJS().selectedRow;
-        // if(selectedRow['col_IsRequired']=='是'){
-        //     alert(1)
-        //     checkboxInput.setAttribute('checked','checked');
-        // }else{
-        //     alert(2)
-        //     checkboxInput.removeAttribute('checked');
-        // }
-
-    }
+   }
     handleCheckbox(){
         const selectedRow = this.props.mapState.toJS().selectedRow;
         const {changeIsRequired}=this.props;
@@ -28,6 +19,8 @@ class DivList extends React.Component{
         const currentTabIndex = this.props.mapState.toJS().currentTabIndex;
         const selectedRow = this.props.mapState.toJS().selectedRow;
         if(currentTabIndex==0){
+            const {mapState,addItem} = this.props;
+
             return (
                 <div>
                     <ul className = "editColumnInfor">
@@ -36,9 +29,11 @@ class DivList extends React.Component{
                         <li>是否必填：<input type = "checkbox" ref="checkboxInput" 
                         defaultChecked={selectedRow['col_IsRequired']=='是'?'checked':''} onChange = {this.handleCheckbox}/></li>
                     </ul>
+                    <DivEdit addItem={addItem} mapState={mapState}></DivEdit>
                 </div>
             )
         }else if(currentTabIndex==1){
+             const {mapState} = this.props;
             return(
                 <div>22222222222222222</div>
             )

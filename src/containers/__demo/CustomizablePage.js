@@ -5,7 +5,7 @@ import Customizable from 'components/__demo/Customizable/Customizable.less'
 import Table from 'components/__demo/Customizable'
 import DivTab from 'components/__demo/Customizable/DivTab'
 import DivList from 'components/__demo/Customizable/DivList'
-import { selectedRowData,clickCloseBtn,selectedTabIndex,changeIsRequired,getTableData} from 'actions/__demo/Customizable'
+import { selectedRowData,clickCloseBtn,selectedTabIndex,changeIsRequired,getTableData,addItem} from 'actions/__demo/Customizable'
 
 
 let columns = [
@@ -32,7 +32,7 @@ class CustomizablePage extends  React.Component{
         clickCloseBtn();
     }
 	render(){
-        const {selectedRowData,mapState} = this.props;
+        const {selectedRowData,mapState, getTableData} = this.props;
         const IsShow = mapState.toJS().IsShow;
         const rows = mapState.toJS().rows;
         if(!IsShow){
@@ -48,7 +48,7 @@ class CustomizablePage extends  React.Component{
                 </div>
             )
         }else{
-        const {mapState,selectedTabIndex,changeIsRequired} = this.props;
+        const {mapState,selectedTabIndex,changeIsRequired,getTableData,addItem} = this.props;
         const col_name = mapState.toJS().selectedRow["col_name"];
             return (
                 <div>
@@ -66,7 +66,7 @@ class CustomizablePage extends  React.Component{
                             </div>
                             <div>
                                 <DivTab mapState={mapState} selectedTabIndex={selectedTabIndex} ></DivTab>
-                                <DivList mapState={mapState} changeIsRequired = {changeIsRequired}></DivList>
+                                <DivList mapState={mapState} changeIsRequired = {changeIsRequired} addItem={addItem}></DivList>
                             </div>
                         </div>
                      </div>
@@ -87,6 +87,7 @@ export default connect(mapStateToProps, {
     clickCloseBtn,
     selectedTabIndex,
     changeIsRequired,
-    getTableData
+    getTableData,
+    addItem,
     
 })(CustomizablePage)
